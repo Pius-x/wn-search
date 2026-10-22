@@ -258,6 +258,7 @@
   .preview-title { display: flex; align-items: center; gap: 8px; min-width: 0; font-weight: 600; }
   .preview-title .pname { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .preview-keyword { color: var(--muted); font-weight: 400; font-size: 12px; white-space: nowrap; }
+  .preview-status { color: var(--muted); font-weight: 400; font-size: 11px; white-space: nowrap; }
   .preview-actions { display: flex; gap: 6px; flex: none; }
   .preview-actions button {
     border: 1px solid var(--border); background: transparent; color: var(--text);
@@ -292,19 +293,35 @@
     border: 0; border-radius: 10px; background: var(--accent); color: #fff;
     padding: 10px 18px; font-size: 14px; cursor: pointer;
   }
-  .preview-note {
-    display: flex; justify-content: space-between; gap: 8px;
-    padding: 8px 12px; border-top: 1px solid var(--border);
-    color: var(--muted); font-size: 12px;
-  }
-  .preview-note .warn { color: var(--warn); }
-
   .preview.fullscreen {
     position: fixed; inset: 0; margin: 0; border-radius: 0; z-index: 60;
     display: flex; flex-direction: column;
   }
   .preview.fullscreen .preview-body { flex: 1; height: auto; }
   body.preview-lock { overflow: hidden; }
+
+  @media (max-width: 899px) {
+    html, body { height: 100%; }
+    body { overflow: hidden; }
+    .wrap {
+      height: 100dvh; max-width: none;
+      padding: 10px 0 env(safe-area-inset-bottom);
+      display: flex; flex-direction: column; overflow: hidden;
+    }
+    header { padding: 0 14px; margin-bottom: 10px; flex: none; }
+    .searchbar { margin: 0 10px; flex: none; }
+    .recent { padding: 0 14px; flex: none; }
+    .search-compact { width: auto; margin: 0 10px 10px; flex: none; }
+    .site-bar { padding: 0 10px; margin: 6px 0 10px; flex: none; }
+    .preview {
+      flex: 1; min-height: 0; margin: 0;
+      display: flex; flex-direction: column;
+      border-left: 0; border-right: 0; border-bottom: 0;
+      border-radius: 0; box-shadow: none;
+    }
+    .preview-body { flex: 1; height: auto; min-height: 0; }
+    .preview-empty { flex: 1; border-radius: 0; }
+  }
 
   .gate {
     position: fixed; inset: 0; z-index: 200;
@@ -451,6 +468,7 @@
       <div class="preview-title">
         <span class="pname" id="previewName"></span>
         <span class="preview-keyword" id="previewKeyword"></span>
+        <span class="preview-status" id="previewStatus"></span>
       </div>
       <div class="preview-actions">
         <button type="button" id="reloadPreview">刷新</button>
@@ -468,10 +486,6 @@
         <p id="blockedText"></p>
         <button type="button" class="big" id="blockedOpen">在新窗口打开</button>
       </div>
-    </div>
-    <div class="preview-note">
-      <span>第三方站点内容，广告与安全检测由其自行控制。</span>
-      <span id="previewStatus"></span>
     </div>
   </section>
 
